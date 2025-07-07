@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chanderi Tourist Spots</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f5f0;
+      color: #333;
+      padding: 0;
+      margin: 0;
+    }
+    header {
+      background-color: #c2a671;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .home-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: white;
+      color: #c2a671;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .home-btn:hover {
+      background: #f0e6cf;
+    }
+    footer {
+      background-color: #333;
+      color: #eee;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .spot-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px;
+      justify-content: center;
+    }
+    .spot-buttons button {
+      padding: 10px 15px;
+      border: none;
+      background: #c2a671;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1 1 auto;
+      max-width: 200px;
+    }
+    .spot-buttons button:hover {
+      background: #a6895e;
+    }
+    .spot-container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .spot-container .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .spot-container .image-gallery img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .spot-container h1 {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #a0522d;
+    }
+    .spot-container p {
+      font-size: 16px;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+    .other-spots-list {
+      margin-top: 40px;
+    }
+    .other-spots-list h3 {
+      margin-bottom: 10px;
+      color: #555;
+    }
+    .other-spots-list ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0;
+    }
+    .other-spots-list li {
+      list-style: none;
+    }
+    .other-spots-list a {
+      display: block;
+      padding: 8px 12px;
+      background: #eee;
+      border-radius: 5px;
+      text-decoration: none;
+      color: #333;
+      transition: 0.3s;
+    }
+    .other-spots-list a:hover {
+      background: #d8b979;
+      color: white;
+    }
+
+    #imgModal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+    #imgModal img {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 80vh;
+    }
+    #imgModal .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 35px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .spot-buttons button {
+        font-size: 14px;
+        padding: 8px 10px;
+      }
+      .spot-container h1 {
+        font-size: 20px;
+      }
+      .spot-container p {
+        font-size: 14px;
+      }
+      .spot-container .image-gallery img {
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html" class="home-btn">Home</a>
+  <header>
+    Explore Chanderi - Tourist Attractions
+  </header>
+
+  <section id="tourist-spots">
+    <h2 style="text-align:center; margin-top: 20px;">Chanderi Tourist Spots</h2>
+    <div class="spot-buttons">
+      <button onclick="redirect('chanderi-fort')">Chanderi Fort</button>
+      <button onclick="redirect('raja-rani-mahal')">Raja Rani Mahal</button>
+      <button onclick="redirect('karila-mata')">Karila Mata Mandir</button>
+      <button onclick="redirect('jageshwari-mata')">Jageshwari Mata Temple</button>
+      <button onclick="redirect('choubeesee-jain')">Shri Choubeesee Jain Temple</button>
+      <button onclick="redirect('budhi-chanderi')">Budhi Chanderi </button>
+      <button onclick="redirect('badal-mahal')">Badal Mahal Gate</button>
+      <button onclick="redirect('koshak-mahal')">Koshak Mahal</button>
+      <button onclick="redirect('jama-masjid')">Jama Masjid</button>
+      <button onclick="redirect('kati-ghati')">Kati Ghati</button>
+    </div>
+
+    <div class="spot-container" id="detail-box" style="display:none">
+      <h1 class="title">Loading...</h1>
+      <div class="image-gallery" id="gallery"></div>
+      <p class="desc"></p>
+
+      <div class="other-spots-list">
+        <h3>Other Tourist Spots</h3>
+        <ul id="other-spots"></ul>
+      </div>
+    </div>
+  </section>
+  <div style="
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  background: #222;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  animation: moveRight 5s linear infinite;
+  white-space: nowrap;
+">
+  Made with ❤️ by Aayush
+</div>
+
+<style>
+  @keyframes moveRight {
+    0% { left: 0; }
+    100% { left: 100%; transform: translateX(-100%); }
+  }
+</style>
+
+
+  <div id="imgModal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImg" src="">
+  </div>
+
+  <footer>
+    &copy; 2025 Chanderi Tourism. All rights reserved. | Designed by Aayush Kushwah
+  </footer>
+
+  <script>
+    function redirect(spot) {
+      window.location.href = window.location.pathname + '?spot=' + spot;
+    }
+
+const data = {
+  "chanderi-fort": {
+    title: "Chanderi Fort",
+    images: ["image/chanderifort.jpg", "image/chanderifort.jpeg"],
+    description: `Chanderi Fort, located in Chanderi, Madhya Pradesh, is a historic Rajput fort known for its strategic location, imposing structure, and rich history. Built in the 11th century by King Kirti Pal, it stands on a hill overlooking the town and has served as a vital military outpost for centuries.
+
+Key Features and History:
+
+Strategic Location:
+Situated on a hilltop, the fort offers panoramic views of the surrounding area, making it a valuable vantage point.
+
+Architectural Styles:
+It showcases a blend of Hindu and Mughal architectural styles, reflecting the various dynasties that controlled it.
+
+Gates and Walls:
+The fort features three main gates: Khooni Darwaza (main gate), Hawa Paur, and Katti-Ghatti (a gateway carved through a hill).
+
+Jauhar Smarak:
+A memorial within the fort complex commemorates the self-sacrifice of Rajput women who performed Jauhar (mass self-immolation) after the battle against Babur.
+
+Historical Significance:
+Chanderi Fort has been a witness to numerous battles and power shifts between various dynasties, including the Rajputs, Mughals, and Marathas.
+
+Tourist Attraction:
+Today, it is a popular tourist destination, offering visitors a glimpse into the region's rich history and culture.`
+  
+},
+
+      "raja-rani-mahal": {
+  title: "Raja Rani Mahal",
+  images: ["image/rajarani.jpg","image/rajaranimahal1.webp"],
+  description: `Renowned earlier for its palaces and havelis, Chanderi is once said to have had as many as 260 mahals. 
+Today, however, only about 43 of these remain. Situated in the Andar Shehar, the Raja Rani Mahal or the Raj Mahal is actually composed of two separate palaces. The imposing Raja Mahal is a seven-storied structure which has now been attached to the smaller Rani Mahal. 
+The two are though built in completely different styles and clearly do not belong to the same time period. The two inscriptions found in a Bawdi within the complex are illegible but the style of calligraphy points to the Khilji period.
+
+This implies that the Raja Mahal must have been originally built by the Khilji rulers in the 15th century. 
+The Rani Mahal, however, appears to be an earlier construction. The upper portions of both the Raja and Rani Mahal, which are in the Bundela style, indicate that these structures were repaired and built upon in the 17th century when the Bundelas came to control the region. 
+Reeling in a state of disrepair previously, efforts are now on to restore and preserve the palaces.
+
+Khilji Serai:
+This serai or rest house was built during the reign of Gyasuddin Khilji by Qazi ibn Mehran. Although in ruins today, the towering minarets betray the structure’s majestic past. 
+The building consists of an arched colonnade surrounding a central courtyard with the remains of three distinct gates and possibly a fourth one.`
+},
+
+
+
+
+
+"karila-mata": {
+  title: "Karila Mata Mandir",
+  images: ["image/karila mata1.webp","image/karilamata2.webp","image/karilamata.jpg"],
+  description: `Karila Mata Temple, also known as Janaki Mata Temple, is located in Ashoknagar district of Madhya Pradesh. This temple is famous as the birthplace of Luv-Kush and a famous fair is held here on Rangpanchami, in which Rai dance is performed. Mother Sita is worshipped in the temple, and it is probably the only temple in India where Sita Mata is seated without Lord Rama.
+
+Some more information about Karila Mata Temple:
+
+Historical Significance:
+Karila Dham Temple is associated with Treta Yuga, when Luv-Kush were born and Apsaras came to dance.
+
+Special Puja:
+In this temple, to fulfill their wishes, devotees have to tell their wishes to the dancing women, who belong to the Bedia community.
+
+Rangpanchami Fair:
+A big fair is held here on Rangpanchami, in which Rai dance, performed by the women of Bedia community, is the center of attraction.
+
+Iron Kadhai:
+Iron Kadhai is also sold in this fair, which is believed to cook food in less oil.
+
+Other Beliefs:
+Lav-Kush and Rishi Valmiki are also seated along with Mata Sita in Karila Dham temple.`
+},
+
+
+
+"jageshwari-mata": {
+  title: "Jageshwari Mata Temple",
+  images: ["image/jageshwari-mata.jpg","image/jageswari.webp"],
+  description: `At a distance of 2 km from Chanderi Bus Station, Jageshwari Mata Temple is a Hindu shrine located in Chanderi, Madhya Pradesh. Situated on a hillside, it is one of the important religious sites in Chanderi.
+
+Jageshwari Temple is an open cave and is dedicated to Goddess Durga who is a Swamyabhu (self-manifested). The initial temple was built during the Mahabharata period by Shishupal. It is believed that certain elements of the current temple were constructed between the 6th and 11th centuries. The murti of Mother Goddess Jageshwari worshipped in the temple is believed to have been the form in which she gave darshan to Shishupal, an ardent devotee of Goddess Durga.
+
+The murti worshipped in the temple only has its head. According to legend, King Kurmadeva was troubled by leprosy. During a hunting expedition, he reached this mountain range and saw a waterfall. When he extended his hands to drink water, his hands were cured. He then bathed in the water, and his leprosy was completely healed. Near the waterfall, the king saw a divine girl. When he tried to talk to her, she disappeared. Later, she appeared in a dream and instructed him to build a grand temple for her but not to open the doors for nine days. The king opened the temple on the third day, due to which only the face of the goddess was revealed.
+
+The modern temple has been built around the cave to accommodate devotees. Subsidiary shrines are dedicated to various forms of Shiva and Shakti. The temple complex houses a unique Shivling carved with 1100 small lingams and another Shivling with Lord Shiva’s faces on all four sides. Two ponds nearby always have cold water flowing from mountain springs.
+
+Every year a fair is organized in Chanderi in the name of Jageshwari Mata. During Chaitri and Sharadiya Navratri, thousands of devotees gather from morning to late night. It is believed that Mata Jageshwari Devi appeared here during Navratri. There are two ways to reach the temple — one via the fort route and another through stairs near the fort.`
+},
+
+
+
+
+
+
+
+    "choubeesee-jain": {
+  title: "Shri Choubeesee Jain Temple",
+  images: ["image/choubeesee-jain.avif"],
+  description: `The Shri Choubisi Jain Temple in Chanderi, Madhya Pradesh, is a revered Jain pilgrimage site known for its unique architecture and historical significance. It's famous for its "Chaubisi," a set of 24 large statues of Jain Tirthankaras, each carved from a different colored stone to match the traditional color associated with that Tirthankara.
+
+Key Features:
+
+Chaubisi:
+The temple's main attraction is the "Chaubisi," a collection of 24 statues of Jain Tirthankaras, each rendered in a color corresponding to the Tirthankara's traditional color, according to the Shastras.
+
+Ancient Idols:
+Besides the Chaubisi, the temple houses numerous other ancient idols, including a giant statue of Bahubali (also known as Gommateshvara).
+
+Architectural Significance:
+The temple is divided into two parts, with the older section featuring a large domed roof adorned with symbols of the 24 Tirthankaras.
+
+Historical Context:
+Built in 1836, the temple is relatively modern compared to some other Jain sites, but its fame attracts many pilgrims.
+
+Library:
+The temple also houses a library with a vast collection of ancient Jain religious writings on leaves.
+
+Location:
+The temple is located near the Rajmahal in Chanderi and is a popular stop for Jain pilgrims visiting the area.
+
+Points to Note:
+Be mindful of monkeys, who may try to snatch belongings.
+
+The temple is a testament to the rich Jain heritage and architectural prowess of the region.`
+},
+
+
+
+
+
+"budhi-chanderi": {
+  title: "Budhi Chanderi",
+  images: [
+    "image/bhudi chanderi.webp",   
+    "image/budhi-chanderi1.jpg"
+  ],
+  description: `Budhi Chanderi, also known as Chandrapuri, is a historical site on the right bank of the Urr River near Chanderi, Madhya Pradesh. Believed to be the ancient settlement of the Gurjara‑Pratiharas and possibly their capital, the area predates present‑day Chanderi and is mentioned in the Puranas as Chaidnagar.
+
+Historical Significance  
+•Ancient Settlement – older than Chanderi itself.  
+•Gurjara Pratihara Capital – a major seat of power.  
+•Discovery – documented in 1865 by Alexander Cunningham, first Director of the ASI.  
+
+Jain Heritage  
+•Around 55 Jain temples once stood here; many are now ruined but several show Bundela‑period restorations.  
+•A 16th‑century inscription mentions Nasirabad, named after Nasiruddin Khilji.  
+•Well‑preserved pieces have been moved to the Chanderi Museum.
+
+Geography & Features  
+• Nidanpur village and the Urr River form its immediate setting.  
+• Sagar Kund – a tank at the hill’s foot that supplied the temple complex.  
+• ASI‑protected mounds and scattered temple bases testify to the town’s former spread.
+
+Today BudhiChanderi is a protected archaeological zone whose weather‑worn stone blocks and lone spires hint at a prosperous Jain centre and a Gurjara‑Pratihara stronghold, waiting to be fully explored by history buffs.`
+},
+
+
+
+
+
+
+
+
+
+      "badal-mahal": {
+        title: "Badal Mahal Gate",
+        images: ["image/badal mahal.jpg","image/badal mahal1.jpg"],
+          description: `Badal Mahal Gate is a significant historical landmark in Chanderi, Madhya Pradesh, known for its unique architecture and historical importance. It's a sandstone gateway and part of a larger palace complex, likely built during the reign of Sultan Mahmood Khilji. The gate is believed to have served as a triumphal archway and a welcome gate for dignitaries.
+
+Here's a more detailed look:
+
+Location:  
+Situated at the southern end of the inner city, near the Jama Masjid, and close to the Chanderi Fort.
+
+Construction:  
+Built in the 15th century, during the reign of Sultan Mahmood Shah Khilji, it is constructed with local sandstone.
+
+Architectural Features:  
+The gate is a double-storied structure with tall, fluted minarets flanking an arched entrance. Above the arch, there's a gap and another arch with intricate jaali work (lattice screens).
+
+Purpose:  
+It likely served as a triumphal archway and a grand entrance to the Badal Mahal palace complex. It may also have been a strategic point for defense.
+
+Historical Significance:  
+The gate is a symbol of Chanderi's rich history and is even used as a seal for official documents and handloom sarees produced in the region.
+
+Tourism:  
+It is a popular tourist attraction, offering a glimpse into Chanderi's past and providing a vantage point for views of the town.`
+},
+
+
+
+
+      "koshak-mahal": {
+        title: "Koshak Mahal",
+        images: ["image/kosakmahal1.jpg","image/Koshak_Mahal.jpg"],
+        description: "This victory monument constructed by Sultan of Malwa is a mystery box of sorts. Initially planned as a seven storey building, the grungy structure has just three complete storeys. Mehmud Shah Khilji constructed this building to memorialise his victory over Sultan Mehmood Sharki in the battle of Kalpi. It is also said that the Sultan constructed this monument in order to provide employment to the people around the area. The reason for forced employment was due to the shortage of pay and because peasants were not working with the ruse of battle won over at Kalpi. The stone used in the construction not only added beauty to the monument but also ended up creating two water bodies. The stone was quarried from Fatehabad and Chhiyoli River, which resulted in Mallukha and Sultania ponds. The structure bears unique ceiling designs in each of the chambers and the window carvings are also different for each of the four quarters within this square structure. Though it is very unclear if the seven floors were constructed or they crumbled over time, but the present day top floor provides a fantastic view of the paddy fields lined up all across the region. A visit to this structure early in the morning would be best to behold the intricate designs and fantastic architecture."
+      },
+
+
+
+
+"jama-masjid": {
+  title: "Jama Masjid",
+  images: ["image/jama masjid.jpg", "image/jamamaszid12.jpeg"],
+  description: `The Jama Masjid in Chanderi, Madhya Pradesh, is a historic mosque known for its unique architecture and historical significance. It's one of the oldest and largest mosques in the region, dating back to the 15th century. The mosque is notable for its serpentine brackets, carved entrance, and the absence of a minaret.
+
+Here's a more detailed look:
+
+Historical Significance:  
+The mosque is believed to have been built during the reign of Ghiyasuddin Balban and is considered a monument of national importance.
+
+Architecture:  
+The mosque features a square courtyard with arcades on the north and south sides, and a prayer hall with three white marble domes at the west end.
+
+Unique Features:  
+The mosque is notable for its absence of a minaret, which is unusual for mosques of that period. It also features beautifully carved serpentine brackets, a characteristic of Chanderi architecture. The entrance gate is adorned with elaborate floral and geometric patterns.
+
+Current Usage:  
+The Jama Masjid remains an active place of worship and is open to visitors.
+
+Location:  
+It is situated opposite the Badal Mahal Gate in Chanderi.`
+},
+
+
+
+     "kati-ghati": {
+  title: "Kati Ghati",
+  images: ["image/katighati1.jpg",],
+  description: `Kati Ghati, located in Chanderi, Madhya Pradesh, is a historical gateway carved out of a single rock, serving as a link between Bundelkhand and Malwa. It is famous for its unique construction and its appearance in the Bollywood movie "Stree".
+
+Key Features:
+
+Man-made mountain pass:  
+Kati Ghati is a distinctive rock-cut gateway, standing at 230 feet above the ground, with the gate itself being 80 feet high and 39 feet wide.
+
+Historical Significance:  
+It is believed to have been built in 1495 AD by Jiman Khan, son of the then Governor of Chanderi, Sher Khan, as stated in an inscription on the eastern wall.
+
+Legendary Tale:  
+One legend says it was built overnight by a mason to welcome the Sultan of Malwa, Ghyasuddin Khilji, but he was punished for not including hinges for doors.
+
+Cultural Relevance:  
+The gateway is a popular tourist destination and was featured in the Bollywood film "Stree".
+
+Location:  
+It is situated on the southern edge of Chanderi, forming a natural boundary between Bundelkhand and Malwa.`
+}
+
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const spot = params.get("spot");
+
+    if (spot && data[spot]) {
+      document.querySelector(".spot-buttons").style.display = "none";
+      document.getElementById("detail-box").style.display = "block";
+      document.querySelector(".title").innerText = data[spot].title;
+      document.querySelector(".desc").innerText = data[spot].description;
+      document.getElementById("gallery").innerHTML = data[spot].images.map(src => `<img src="${src}" alt="Image">`).join('');
+      const otherList = document.getElementById("other-spots");
+      otherList.innerHTML = Object.keys(data).filter(k => k !== spot).map(k => `<li><a href="?spot=${k}">${data[k].title}</a></li>`).join('');
+    }
+
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+
+    document.addEventListener("click", function(e) {
+      if (e.target.tagName === "IMG" && e.target.closest(".image-gallery")) {
+        modal.style.display = "block";
+        modalImg.src = e.target.src;
+      }
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+  </script>
+
+ <!-- Funny WhatsApp badge -->
+<a href="https://wa.me/917225037494?text=Website%20dekh%20kar%20plan%20ban%20gaya%20hai%20Chanderi%20jaane%20ka%2C%20bolo%20kab%20nikle%3F%20Sath%20chalenge" 
+   target="_blank"
+   style="position: fixed; bottom: 80px; right: 20px; z-index: 1000;">
+  <img src="myimage.jpeg" alt="Chat on WhatsApp"
+       style="width: 55px; height: 55px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+</a>
+
+
+
+</body>
+
+</html>

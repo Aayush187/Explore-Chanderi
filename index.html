@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chanderi - The Silk City</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+</head>
+<body>
+
+  <header>
+    <div class="logo">Chanderi</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#sarees">Sarees</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Welcome to Chanderi</h1>
+      <p>Explore the heritage of Chanderi – where tradition meets elegance.</p>
+      <a href="#about" class="btn">Explore More</a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About Chanderi</h2>
+    <p>
+      Chanderi, in Madhya Pradesh, is famous for its handwoven sarees, history, and culture. From royal forts to the fine artistry of fabric, Chanderi is a true gem of Indian tradition.
+    </p>
+    <img src="image/chanderifort.jpg" alt="Chanderi Fort" class="about-img">
+  </section>
+
+  <section class="sarees" id="sarees">
+  <h2>Types of Chanderi Sarees</h2>
+  <div class="saree-cards">
+    <div class="card">
+      <img src="image/cotton_saree1.webp" alt="Cotton Saree">
+      <h3>Cotton Chanderi</h3>
+      <p>Perfect for summers, these sarees are lightweight and breathable with elegant patterns.</p>
+    </div>
+    <div class="card">
+      <img src="image/cotton-saree.jpeg" alt="Silk Saree">
+      <h3>Silk Chanderi</h3>
+      <p>Rich in texture and sheen, silk chanderis are ideal for weddings and traditional functions.</p>
+    </div>
+    <div class="card">
+      <img src="image/zari-work.webp" alt="Zari Work Saree">
+      <h3>Zari Work Saree</h3>
+      <p>Decorated with golden zari, these sarees reflect royal charm and timeless elegance.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="gallery" id="gallery">
+  <h2>Chanderi Gallery</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="image/weaver.jpeg" alt="Weaver at work">
+      <p class="caption">A skilled weaver crafting a Chanderi saree by handloom.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="image/chanderifort1.jpg" alt="Chanderi Fort">
+      <p class="caption">Historic Chanderi Fort, a symbol of the town's royal past.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="image/market.jpg" alt="Chanderi Market">
+      <p class="caption">Local market showcasing handmade Chanderi products.</p>
+    </div>
+    <div class="gallery-item">
+      <img src="image/saree fabric.webp" alt="Fabric Close-up">
+      <p class="caption">Close-up of traditional Chanderi fabric with zari work.</p>
+    </div>
+  </div>
+</section>
+
+
+ <section class="home-tourist-preview">
+    <h2>Explore Chanderi's Top Tourist Spots</h2>
+    <div class="tourist-list">
+      <a class="spot-card" href="tourist.html?spot=chanderi-fort">
+        <img src="image/fort.png" alt="Chanderi Fort">
+        <h4>Chanderi Fort</h4>
+      </a>
+      <a class="spot-card" href="tourist.html?spot=raja-rani-mahal">
+        <img src="image/rajarani.jpg" alt="Raja Rani Mahal">
+        <h4>Raja Rani Mahal</h4>
+      </a>
+      <a class="spot-card" href="tourist.html?spot=karila-mata">
+        <img src="image/karilamata.jpg" alt="Karila Mata">
+        <h4>Karila Mata Mandir</h4>
+      </a>
+      <a class="spot-card" href="tourist.html?spot=koshak-mahal">
+        <img src="image/kosakmahal1.jpg" alt="Koshak Mahal">
+        <h4>Koshak Mahal</h4>
+      </a>
+    </div>
+  </section>
+
+
+  <section id="contact">
+  <h2>Contact Us</h2>
+  <p>Want to learn more or visit Chanderi? Reach out to us.</p>
+  <form>
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<div style="
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  background: #222;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  animation: moveRight 10s linear infinite;
+  white-space: nowrap;
+">
+  Made with ❤️ by Aayush
+</div>
+
+<style>
+  @keyframes moveRight {
+    0% { left: 0; }
+    100% { left: 100%; transform: translateX(-100%); }
+  }
+</style>
+
+
+<footer>
+  <p>&copy; 2025 Chanderi Heritage. Designed by Aayush Kushwah.</p>
+</footer>
+
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+    });
+  });
+</script>
+
+<a href="https://wa.me/917225037494?text=Hello%2C%20I%20want%20to%20know%20more%20about%20Chanderi.%20Please%20share%20details.
+" 
+   class="whatsapp-link" target="_blank" title="Chat with us">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<audio id="bg-audio" loop>
+  <source src="image/song.mpeg" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', () => {
+      const audio = document.getElementById("bg-audio");
+      audio.play();
+    }, { once: true }); // sirf ek baar click par chale
+  });
+</script>
+
+</body>
+</html>
